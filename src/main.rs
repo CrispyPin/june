@@ -14,7 +14,7 @@ fn main() {
 }
 
 fn juneth(now: NaiveDate) {
-	let last_june_1st = if now.month() > 6 {
+	let last_june_1st = if now.month() >= 6 {
 		NaiveDate::from_ymd(now.year(), 6, 1)
 	} else {
 		NaiveDate::from_ymd(now.year() - 1, 6, 1)
