@@ -20,5 +20,11 @@ fn juneth(now: NaiveDate) {
 		NaiveDate::from_ymd(now.year() - 1, 6, 1)
 	};
 	let juneth = now.num_days_from_ce() - last_june_1st.num_days_from_ce() + 1;
-	println!("June {juneth}th");
+	let ending = match juneth % 10 {
+		1 => "st",
+		2 => "nd",
+		3 => "rd",
+		_ => "th",
+	};
+	println!("June {juneth}{ending}");
 }
