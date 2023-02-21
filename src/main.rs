@@ -5,13 +5,14 @@ fn main() {
 	let args: Vec<String> = env::args().collect();
 
 	let date = if args.len() > 1 {
-		match NaiveDate::parse_from_str(&args[1], "%Y-%m-%d") {
-			Ok(a) => a,
-			Err(_) => {
-				eprintln!("ERROR: Input date must follow format YYYY-MM-DD");
-				exit(-1);
-			}
-		}
+		NaiveDate::parse_from_str(&args[1], "%Y-%m-%d").unwrap_or_else(|err| {
+			eprintln!(
+				"ERROR: {err} > \"{}\" \n\
+				\0└╴     Date must follow format \"YYYY-MM-DD\"",
+				&args[1]
+			);
+			exit(-1);
+		})
 	} else {
 		Local::now().date().naive_local()
 	};
