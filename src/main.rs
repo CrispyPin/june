@@ -2,14 +2,12 @@ use chrono::{Datelike, Local, NaiveDate};
 use std::{env, process::exit};
 
 fn main() {
-	let args: Vec<String> = env::args().collect();
-
-	let date = if args.len() > 1 {
-		NaiveDate::parse_from_str(&args[1], "%Y-%m-%d").unwrap_or_else(|err| {
+	let date = if let Some(arg) = env::args().nth(1) {
+		NaiveDate::parse_from_str(&arg, "%Y-%m-%d").unwrap_or_else(|err| {
 			eprintln!(
 				"ERROR: {err} > \"{}\" \n\
 				\0└╴     Date must follow format \"YYYY-MM-DD\"",
-				&args[1]
+				&arg
 			);
 			exit(-1);
 		})
